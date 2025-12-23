@@ -1,43 +1,55 @@
-print("Программа, которая вычисляетколичество цифр 3")
-print("Введите натуральное число:")
-try:
-    num = int(input())
-    if num <= 0:
-        print("Число должно быть натуральным")
-    else:
-        digits = [int(d) for d in str(num)]
-        last = digits[-1]
+print("Введите натуральное число: ")
+num = int(input())
 
-        count_3 = 0
-        count_last = 0
-        count_all = 0
-        sum_5 = 0
-        prod_7 = 1
-        count_0_5 = 0
+count_3 = 0  #количество цифр 3
+count_last = 0  #количество последней цифры
+count_even = 0  #количество четных цифр
+sum_big5 = 0  #сумма цифр > 5
+prod_big7 = 1  #произведение цифр > 7
+count_0_5 = 0  #количество цифр 0 и 5
 
-        for d in digits:
-            if d == 3:
-                count_3 += 1
-            if d == last:
-                count_last += 1
-            if d % 2 == 0:
-                count_all += 1
-            if d > 5:
-                sum_5 += d
-            if d > 7:
-                prod_7 *= d
-            if d == 0 or d == 5:
-                count_0_5 += 1
+#Находим последнюю цифру с помощью цикла
+temp_num = num
+while temp_num >= 10:
+    temp_num = temp_num // 10
+last_digit = temp_num
 
-        if prod_7 == 1 and not any(d > 7 for d in digits):
-            prod_7 = 1
+#Используем цикл while для перебора цифр
+working_num = num
+while working_num > 0:
+    #Получаем текущую цифру
+    digit = working_num % 10
 
-        print("Сколько чисел 3 в числе = ", count_3)
-        print("Сколько раз в нём встречается последняя цифра = ",count_last)
-        print("Количество чётных цифр = ",count_all)
-        print("Сумма его цифр, больших пяти = ",sum_5)
-        print("Произведение цифр, больших семи = ",prod_7)
-        print("Сколько раз в нём встречаются цифры 0 и 5 (всего суммарно) = ",count_0_5)
+    #Подсчет цифр 3
+    if digit == 3:
+        count_3 += 1
 
-except ValueError:
-    print("Ошибка!")
+    #Подсчет последней цифры
+    if digit == last_digit:
+        count_last += 1
+
+    #Подсчет четных цифр
+    if digit % 2 == 0:
+        count_even += 1
+
+    #Сумма цифр > 5
+    if digit > 5:
+        sum_big5 += digit
+
+    #Произведение цифр > 7
+    if digit > 7:
+        prod_big7 *= digit
+
+    #Подсчет цифр 0 и 5
+    if digit == 0 or digit == 5:
+        count_0_5 += 1
+
+    #Убираем обработанную цифру
+    working_num = working_num // 10
+
+print("Количество цифр 3 в нём:", count_3)
+print("Сколько раз в нём встречается последняя цифра:", count_last)
+print("Количество чётных цифр:", count_even)
+print("Сумма его цифр, больших пяти:", sum_big5)
+print("Произведение цифр, больших семи:", prod_big7)
+print("Сколько раз в нём встречаются цифры 0 и 5 (всего суммарно):", count_0_5)
